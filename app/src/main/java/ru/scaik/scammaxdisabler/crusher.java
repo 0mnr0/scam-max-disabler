@@ -10,7 +10,7 @@ import de.robv.android.xposed.XposedHelpers;
 import de.robv.android.xposed.callbacks.XC_LoadPackage;
 
 public class crusher implements IXposedHookLoadPackage {
-    final String CrushText = "FUCK MAX! FREE DISCORD AND TELEGRAM, ASSHOLES!";
+    final String CrushText = "NUH, I DONT WANT TO!";
 
 
     @Override
@@ -38,14 +38,12 @@ public class crusher implements IXposedHookLoadPackage {
                 protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                     Activity act = (Activity) param.thisObject;
 
-                    act.runOnUiThread(() -> {
-                        new Thread(() -> {
-                            android.widget.Toast t = new android.widget.Toast(act);
-                            t.setView(null);
-                            t.show();
-                            // на всякий случай
-                        }).start();
-                    });
+                    act.runOnUiThread(() -> new Thread(() -> {
+                        android.widget.Toast t = new android.widget.Toast(act);
+                        t.setView(null);
+                        t.show();
+                        // на всякий случай
+                    }).start());
 
                     View root = act.findViewById(android.R.id.content);
                     root.post(() -> {
